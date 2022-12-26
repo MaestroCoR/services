@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authors-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorsservice
+  template:
+    metadata:
+      labels:
+        app: authorsservice
+    spec:
+      containers:
+        - name: authorsservice
+          image: maestrocor/authorsservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: authors-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: authorsservice
+  ports:
+  - name: authorsservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: authorsgrpc
+    protocol: TCP
+    port: 666
+    targetPort: 666

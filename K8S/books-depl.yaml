@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: books-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booksservice
+  template:
+    metadata:
+      labels:
+        app: booksservice
+    spec:
+      containers:
+        - name: booksservice
+          image: maestrocor/booksservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: books-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: booksservice
+  ports:
+  - name: booksservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
