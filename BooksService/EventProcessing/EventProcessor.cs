@@ -29,7 +29,7 @@ namespace BooksService.EventProccessing
                     deleteAuthor(message);
                     break;
                 case EventType.AuthorUpdated:
-                    deleteAuthor(message);
+                    updateAuthor(message);
                     break;
                 default:
                     break;
